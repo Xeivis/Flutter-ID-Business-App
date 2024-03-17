@@ -5,5 +5,11 @@ class Contact {
   final String email;
   final String nametag;
 
-  Contact(this.name, this.title, this.phone, this.email, this.nametag);
+  Contact(
+    this.name,
+    this.title,
+    this.phone,
+    this.email,
+    this.nametag,
+  );
 }

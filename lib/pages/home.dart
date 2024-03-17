@@ -15,13 +15,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // TODO: MOCK DATA
+  // MOCK DATA
   final Contact contact = Contact(
     "Xeivis",
     "Software Developer",
     "666666666",
-    // "Some@Random.mail",
-    "supermegalognemail@thatnohumanbeingwoulduse.internet",
+    "Some@Random.mail",
+    // "supermegalognemail@thatnohumanbeingwoulduse.internet",
     "@xeivis",
   );
 
