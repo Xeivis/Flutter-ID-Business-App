@@ -55,12 +55,23 @@ class _HomeState extends State<Home> {
               ),
               Flexible(
                 flex: 1,
-                child: ContactInfo(
-                  contact: contact,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: ContactInfo(
+                    contact: contact,
+                  ),
                 ),
               ),
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton.small(
+          child: const Icon(
+            Icons.settings,
+          ),
+          backgroundColor: Theme.of(context).colorScheme.onBackground,
+          elevation: 0,
+          onPressed: () {},
         ),
       ),
     );

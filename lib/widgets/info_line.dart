@@ -25,14 +25,14 @@ class InfoLine extends StatelessWidget {
         Icon(
           icon,
           color: Theme.of(context).colorScheme.secondary,
-          size: 20 * (relevantSize/700),
+          size: 40 * (relevantSize/700),
         ),
         Padding(
           padding: EdgeInsets.only(left: 20 * (relevantSize/700),),
           child: Text(
             text,
             style: TextStyle(
-              fontSize: 20 * (relevantSize/700),
+              fontSize: 25 * (relevantSize/700),
               color: Theme.of(context).colorScheme.secondary,
             ),
           ),
