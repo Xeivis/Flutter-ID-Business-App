@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:id_card/classes/contact.dart';
 import 'package:id_card/theme/theme.dart';
+import '../widgets/config_button.dart';
 import '../widgets/contact_info.dart';
 import '../widgets/main_info.dart';
 
@@ -18,6 +19,7 @@ class _HomeState extends State<Home> {
   // MOCK DATA
   final Contact contact = Contact(
     "Xeivis",
+    // "supermegalognemail@thatnohumanbeingwoulduse.internetsupermegalognemail@thatnohumanbeingwoulduse.internetsupermegalognemail@thatnohumanbeingwoulduse.internet",
     "Software Developer",
     "666666666",
     "Some@Random.mail",
@@ -45,34 +47,30 @@ class _HomeState extends State<Home> {
       darkTheme: darkTheme,
       home: Scaffold(
         body: SafeArea(
-          child: Column(
-            children: [
-              Flexible(
-                flex: 5,
-                child: MainInfo(
-                  contact: contact,
-                ),
-              ),
-              Flexible(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: ContactInfo(
-                    contact: contact,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 40),
+            child: Center(
+              child: Column(
+                children: [
+                  Flexible(
+                    flex: 5,
+                    fit: FlexFit.tight,
+                    child: MainInfo(
+                      contact: contact,
+                    ),
                   ),
-                ),
+                  Flexible(
+                    flex: 1,
+                    child: ContactInfo(
+                      contact: contact,
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
-        floatingActionButton: FloatingActionButton.small(
-          child: const Icon(
-            Icons.settings,
-          ),
-          backgroundColor: Theme.of(context).colorScheme.onBackground,
-          elevation: 0,
-          onPressed: () {},
-        ),
+        floatingActionButton: const ConfigButton(),
       ),
     );
   }

@@ -11,27 +11,30 @@ class ContactInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InfoLine(
-              icon: Icons.call,
-              text: contact.phone,
-            ),
-            InfoLine(
-              icon: Icons.mail,
-              text: contact.email,
-            ),
-            InfoLine(
-              icon: Icons.share,
-              text: contact.nametag,
-            ),
-          ],
-        );
-      },
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InfoLine(
+                icon: Icons.call,
+                text: contact.phone,
+              ),
+              InfoLine(
+                icon: Icons.mail,
+                text: contact.email,
+              ),
+              InfoLine(
+                icon: Icons.share,
+                text: contact.nametag,
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

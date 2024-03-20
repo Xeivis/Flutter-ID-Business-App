@@ -10,30 +10,24 @@ class MainInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double relevantSize;
-    if (size.height > size.width) {
-      relevantSize = size.width;
-    } else {
-      relevantSize = size.height;
-    }
-    return Center(
+    return FittedBox(
+      fit: BoxFit.scaleDown,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            radius: relevantSize / 4,
+          const CircleAvatar(
+            radius: 130,
           ),
           Text(
             contact.name,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
-                fontSize: 72 * (relevantSize / 800),
-                color: Theme.of(context).colorScheme.secondary),
+                fontSize: 72, color: Theme.of(context).colorScheme.secondary),
           ),
           Text(
             contact.title,
             style: TextStyle(
-              fontSize: 32 * (relevantSize / 800),
+              fontSize: 28,
               color: Theme.of(context).colorScheme.primary,
             ),
           ),

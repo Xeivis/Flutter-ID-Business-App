@@ -12,29 +12,19 @@ class InfoLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double relevantSize;
-    if (size.height > size.width) {
-      relevantSize = size.width;
-    } else {
-      relevantSize = size.height;
-    }
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(
           icon,
           color: Theme.of(context).colorScheme.secondary,
-          size: 40 * (relevantSize/700),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 20 * (relevantSize/700),),
+          padding: const EdgeInsets.only(left: 10.0),
           child: Text(
             text,
             style: TextStyle(
-              fontSize: 25 * (relevantSize/700),
-              color: Theme.of(context).colorScheme.secondary,
-            ),
+                color: Theme.of(context).colorScheme.secondary, fontSize: 20),
           ),
         ),
       ],
