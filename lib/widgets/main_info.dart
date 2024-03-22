@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:id_card/classes/contact.dart';
+import 'package:id_card/model/contact.dart';
 
 class MainInfo extends StatelessWidget {
   final Contact contact;

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:id_card/theme/theme.dart';
-import 'package:id_card/pages/home.dart';
-import 'package:id_card/pages/settings.dart';
 
-void main() {
-  runApp(const MainApp());
+class Settings extends StatefulWidget {
+  const Settings({super.key});
+
+  @override
+  State<Settings> createState() => _SettingsState();
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
+class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     ThemeData currentTheme;
@@ -24,15 +23,15 @@ class MainApp extends StatelessWidget {
         statusBarColor: currentTheme.colorScheme.primary,
       ),
     );
-    return MaterialApp(
-      themeMode: ThemeMode.system,
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Home(),
-        '/settings': (context) => const Settings(),
-      },
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: ElevatedButton(
+            child: const Text('Go back'),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
+      ),
     );
   }
 }

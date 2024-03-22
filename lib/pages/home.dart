@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:id_card/classes/contact.dart';
+import 'package:id_card/model/contact.dart';
 import 'package:id_card/theme/theme.dart';
 import '../widgets/config_button.dart';
 import '../widgets/contact_info.dart';
@@ -41,37 +41,32 @@ class _HomeState extends State<Home> {
         statusBarColor: currentTheme.colorScheme.primary,
       ),
     );
-    return MaterialApp(
-      themeMode: ThemeMode.system,
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      home: Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 40),
-            child: Center(
-              child: Column(
-                children: [
-                  Flexible(
-                    flex: 5,
-                    fit: FlexFit.tight,
-                    child: MainInfo(
-                      contact: contact,
-                    ),
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 40),
+          child: Center(
+            child: Column(
+              children: [
+                Flexible(
+                  flex: 5,
+                  fit: FlexFit.tight,
+                  child: MainInfo(
+                    contact: contact,
                   ),
-                  Flexible(
-                    flex: 1,
-                    child: ContactInfo(
-                      contact: contact,
-                    ),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: ContactInfo(
+                    contact: contact,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
-        floatingActionButton: const ConfigButton(),
       ),
+      floatingActionButton: const ConfigButton(),
     );
   }
 }
