@@ -18,13 +18,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // MOCK DATA
   final Contact contact = Contact(
-    "Xeivis",
-    // "supermegalognemail@thatnohumanbeingwoulduse.internetsupermegalognemail@thatnohumanbeingwoulduse.internetsupermegalognemail@thatnohumanbeingwoulduse.internet",
-    "Software Developer",
-    "666666666",
-    "Some@Random.mail",
-    // "supermegalognemail@thatnohumanbeingwoulduse.internet",
-    "@xeivis",
+    "Your Name",
+    "Job position / Title",
+    "Phone number",
+    "YourEmail@Your.Domain",
+    "@YourSocialMediaTag",
   );
 
   _HomeState();
