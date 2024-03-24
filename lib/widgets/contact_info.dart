@@ -13,27 +13,26 @@ class ContactInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return FittedBox(
       fit: BoxFit.scaleDown,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InfoLine(
-                icon: Icons.call,
-                text: contact.phone,
-              ),
-              InfoLine(
-                icon: Icons.mail,
-                text: contact.email,
-              ),
-              InfoLine(
-                icon: Icons.share,
-                text: contact.nametag,
-              ),
-            ],
-          );
-        },
+      child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            InfoLine(
+              icon: Icons.call,
+              text: contact.phone,
+            ),
+            InfoLine(
+              icon: Icons.mail,
+              text: contact.email,
+            ),
+            InfoLine(
+              icon: Icons.share,
+              text: contact.nametag,
+            ),
+          ],
+        ),
       ),
     );
   }

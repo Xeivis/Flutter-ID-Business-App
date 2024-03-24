@@ -12,26 +12,29 @@ class MainInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return FittedBox(
       fit: BoxFit.scaleDown,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const CircleAvatar(
-            radius: 130,
-          ),
-          Text(
-            contact.name,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                fontSize: 72, color: Theme.of(context).colorScheme.secondary),
-          ),
-          Text(
-            contact.title,
-            style: TextStyle(
-              fontSize: 28,
-              color: Theme.of(context).colorScheme.primary,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CircleAvatar(
+              radius: 130,
             ),
-          ),
-        ],
+            Text(
+              contact.name,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  fontSize: 72, color: Theme.of(context).colorScheme.secondary),
+            ),
+            Text(
+              contact.title,
+              style: TextStyle(
+                fontSize: 28,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

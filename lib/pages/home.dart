@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 Flexible(
-                  flex: 1,
+                  flex: 2,
                   child: ContactInfo(
                     contact: contact,
                   ),

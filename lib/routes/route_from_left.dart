@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:id_card/pages/settings.dart';
 
-Route _createRoute() {
+Route createRoute() {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => const Settings(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(0.0, 1.0);
+      const begin = Offset(1.0, 0.0);
       const end = Offset.zero;
       const curve = Curves.ease;
 
