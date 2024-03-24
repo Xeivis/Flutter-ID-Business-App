@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
   // MOCK DATA
   final Contact contact = Contact(
     "Your Name",
-    "Job position / Title",
+    "Title / Job position",
     "Phone number",
     "YourEmail@Your.Domain",
     "@YourSocialMediaTag",

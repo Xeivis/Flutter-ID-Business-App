@@ -25,6 +25,7 @@ class MainApp extends StatelessWidget {
       ),
     );
     return MaterialApp(
+      title: "ID Card",
       themeMode: ThemeMode.system,
       theme: lightTheme,
       darkTheme: darkTheme,

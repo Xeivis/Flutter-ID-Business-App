@@ -8,7 +8,7 @@ class ConfigButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton.small(
+    return FloatingActionButton(
       backgroundColor: Theme.of(context).colorScheme.background,
       elevation: 0,
       onPressed: () => Navigator.of(context).push(createRoute()),
