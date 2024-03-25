@@ -7,8 +7,10 @@ environment:
   sdk: '>=3.2.6 <4.0.0'
 
 dependencies:
+  flex_color_picker: ^3.4.1
   flutter:
     sdk: flutter
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

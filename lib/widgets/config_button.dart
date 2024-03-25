@@ -9,8 +9,8 @@ class ConfigButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      elevation: 0,
+      backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
+      elevation: 1,
       onPressed: () => Navigator.of(context).push(createRoute()),
       child: const Icon(
         Icons.settings,
