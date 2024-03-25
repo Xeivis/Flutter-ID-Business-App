@@ -1,14 +1,17 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:id_card/theme/theme.dart';
-
 import '../widgets/custom_list_tile.dart';
 import '../widgets/go_back_button.dart';
 import '../widgets/settings_section.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({super.key});
+  const Settings({
+    super.key,
+    required this.handleColorChange,
+  });
+
+  final void Function(Color color) handleColorChange;
+
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -17,18 +20,6 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    ThemeData currentTheme;
-    if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
-      currentTheme = darkTheme;
-    } else {
-      currentTheme = lightTheme;
-    }
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: currentTheme.colorScheme.primary,
-      ),
-    );
-    // Color screenPickerColor = Theme.of(context).colorScheme.primary;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
       body: SafeArea(
@@ -109,27 +100,25 @@ class _SettingsState extends State<Settings> {
                   ],
                 ),
                 const Divider(),
-                const SizedBox(
+                SizedBox(
                   width: double.infinity,
                   child: Padding(
-                    padding: EdgeInsets.all(6),
+                    padding: const EdgeInsets.all(6),
                     child: Card(
                       elevation: 1,
-                      // child: ColorPicker(
-                      //   enableShadesSelection: false,
-                      //   pickersEnabled: const {
-                      //     ColorPickerType.accent: false,
-                      //   },
-                      //   // // Use the screenPickerColor as start color.
-                      //   // color: Colors.red,
-                      //   // Update the screenPickerColor using the callback.
-                      //   onColorChanged: (Color color) =>
-                      //       setState(() => screenPickerColor = color),
-                      //   heading: Text(
-                      //     'Select color',
-                      //     style: Theme.of(context).textTheme.headlineSmall,
-                      //   ),
-                      // ),
+                      child: ColorPicker(
+                        enableShadesSelection: false,
+                        pickersEnabled: const {
+                          ColorPickerType.accent: false,
+                        },
+                        onColorChanged: (Color color) {
+                          widget.handleColorChange(color);
+                        },
+                        heading: Text(
+                          'Select color',
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                      ),
                     ),
                   ),
                 ),
