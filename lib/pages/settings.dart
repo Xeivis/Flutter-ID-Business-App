@@ -1,18 +1,13 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:id_card/provider/config_provider.dart';
+import 'package:provider/provider.dart';
 import '../widgets/custom_list_tile.dart';
 import '../widgets/go_back_button.dart';
 import '../widgets/settings_section.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({
-    super.key,
-    required this.handleColorChange,
-  });
-
-  final void Function(Color color) handleColorChange;
-
-
+  const Settings({super.key});
   @override
   State<Settings> createState() => _SettingsState();
 }
@@ -112,8 +107,9 @@ class _SettingsState extends State<Settings> {
                           ColorPickerType.accent: false,
                         },
                         onColorChanged: (Color color) {
-                          widget.handleColorChange(color);
+                          context.read<ConfigProvider>().setColorTheme(color);
                         },
+                        color: context.read<ConfigProvider>().config.themeColor,
                         heading: Text(
                           'Select color',
                           style: Theme.of(context).textTheme.headlineSmall,

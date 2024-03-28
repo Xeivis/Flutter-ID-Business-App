@@ -1,48 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:id_card/provider/config_provider.dart';
 import 'package:id_card/theme/theme.dart';
 import 'package:id_card/pages/home.dart';
 import 'package:id_card/pages/settings.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ConfigProvider()),
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
-class MainApp extends StatefulWidget {
+class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
-  State<MainApp> createState() => _MainAppState();
-}
-
-class _MainAppState extends State<MainApp> {
-  void handleColorChange(Color color) {
-    setState(() {
-      lightTheme = ThemeData(
-        brightness: Brightness.light,
-        colorSchemeSeed: color,
-      );
-      darkTheme = ThemeData(
-        brightness: Brightness.dark,
-        colorSchemeSeed: color,
-      );
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "ID Card",
-      themeMode: ThemeMode.system,
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => Home(
-              handleColorChange: handleColorChange,
-            ),
-        '/settings': (context) => Settings(
-              handleColorChange: handleColorChange,
-            ),
+    return Consumer<ConfigProvider>(
+      builder: (context, configProvider, child) {
+        lightTheme = ThemeData(
+          brightness: Brightness.light,
+          colorSchemeSeed: configProvider.config.themeColor,
+        );
+        darkTheme = ThemeData(
+          brightness: Brightness.dark,
+          colorSchemeSeed: configProvider.config.themeColor,
+        );
+        return MaterialApp(
+          title: "ID Card",
+          themeMode: ThemeMode.system,
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const Home(),
+            '/settings': (context) => const Settings(),
+          },
+        );
       },
     );
   }

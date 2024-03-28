@@ -7,12 +7,7 @@ import '../widgets/contact_info.dart';
 import '../widgets/main_info.dart';
 
 class Home extends StatefulWidget {
-  const Home({
-    super.key,
-    required this.handleColorChange,
-  });
-
-  final void Function(Color color) handleColorChange;
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -66,7 +61,7 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      floatingActionButton: ConfigButton(handleColorChange: widget.handleColorChange,),
+      floatingActionButton: const ConfigButton(),
     );
   }
 }
