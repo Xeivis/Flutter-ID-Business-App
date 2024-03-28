@@ -3,7 +3,7 @@ import 'package:id_card/model/contact.dart';
 
 class Configuration {
   Color themeColor;
-  int darkThemeOption;
+  ThemeOption darkThemeOption;
   Contact currentContact;
 
   Configuration({
@@ -12,3 +12,5 @@ class Configuration {
     required this.currentContact,
   });
 }
+
+enum ThemeOption {light, dark, system}

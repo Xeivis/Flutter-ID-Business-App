@@ -5,7 +5,7 @@ import 'package:id_card/model/contact.dart';
 class ConfigProvider with ChangeNotifier {
   Configuration config = Configuration(
     themeColor: Colors.deepOrange,
-    darkThemeOption: 0,
+    darkThemeOption: ThemeOption.system,
     currentContact: Contact(
       "Your Name",
       "Title / Job position",

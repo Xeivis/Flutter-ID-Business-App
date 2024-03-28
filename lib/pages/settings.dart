@@ -1,20 +1,36 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:id_card/model/config.dart';
 import 'package:id_card/provider/config_provider.dart';
+import 'package:id_card/theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../widgets/custom_list_tile.dart';
 import '../widgets/go_back_button.dart';
 import '../widgets/settings_section.dart';
 
-class Settings extends StatefulWidget {
+class Settings extends StatelessWidget {
   const Settings({super.key});
   @override
-  State<Settings> createState() => _SettingsState();
-}
-
-class _SettingsState extends State<Settings> {
-  @override
   Widget build(BuildContext context) {
+    ThemeData currentTheme;
+    switch (context.read<ConfigProvider>().config.darkThemeOption) {
+      case ThemeOption.dark:
+        break;
+      case ThemeOption.light:
+        break;
+      default:
+        if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+          currentTheme = darkTheme;
+        } else {
+          currentTheme = lightTheme;
+        }
+        SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle(
+            statusBarColor: currentTheme.colorScheme.primary,
+          ),
+        );
+    }
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
       body: SafeArea(
