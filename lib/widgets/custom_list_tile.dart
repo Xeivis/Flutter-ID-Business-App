@@ -6,13 +6,13 @@ class CustomListTile extends StatelessWidget {
     required this.icon,
     required this.name,
     required this.functionIcon,
-    required this.function,
+    required this.onTap,
   });
 
   final IconData icon;
   final String name;
   final IconData functionIcon;
-  final Function function;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class CustomListTile extends StatelessWidget {
       title: Text(name),
       leading: Icon(icon),
       trailing: Icon(functionIcon),
-      onTap: function(),
+      onTap: onTap,
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:id_card/model/config.dart';
 import 'package:id_card/model/contact.dart';
+import 'package:id_card/model/theme_options.dart';
 import 'package:id_card/provider/config_provider.dart';
 import 'package:id_card/theme/theme.dart';
 import 'package:provider/provider.dart';
@@ -29,10 +29,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     ThemeData currentTheme;
-    switch (context.read<ConfigProvider>().config.darkThemeOption) {
+    switch (context.read<ConfigProvider>().darkThemeOption) {
       case ThemeOption.dark:
+        currentTheme = darkTheme;
         break;
       case ThemeOption.light:
+        currentTheme = lightTheme;
         break;
       default:
         if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
@@ -58,14 +60,14 @@ class _HomeState extends State<Home> {
                   fit: FlexFit.tight,
                   child: MainInfo(
                     contact:
-                        context.read<ConfigProvider>().config.currentContact,
+                        context.read<ConfigProvider>().currentContact,
                   ),
                 ),
                 Flexible(
                   flex: 2,
                   child: ContactInfo(
                     contact:
-                        context.read<ConfigProvider>().config.currentContact,
+                        context.read<ConfigProvider>().currentContact,
                   ),
                 ),
               ],

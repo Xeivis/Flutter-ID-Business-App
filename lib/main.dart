@@ -25,15 +25,15 @@ class MainApp extends StatelessWidget {
       builder: (context, configProvider, child) {
         lightTheme = ThemeData(
           brightness: Brightness.light,
-          colorSchemeSeed: configProvider.config.themeColor,
+          colorSchemeSeed: configProvider.themeColor,
         );
         darkTheme = ThemeData(
           brightness: Brightness.dark,
-          colorSchemeSeed: configProvider.config.themeColor,
+          colorSchemeSeed: configProvider.themeColor,
         );
         return MaterialApp(
           title: "ID Card",
-          themeMode: ThemeMode.system,
+          themeMode: context.read<ConfigProvider>().darkThemeOption.mode,
           theme: lightTheme,
           darkTheme: darkTheme,
           initialRoute: '/',

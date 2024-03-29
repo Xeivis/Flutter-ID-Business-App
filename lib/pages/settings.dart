@@ -1,23 +1,31 @@
-import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:id_card/model/config.dart';
+import 'package:id_card/model/theme_options.dart';
 import 'package:id_card/provider/config_provider.dart';
 import 'package:id_card/theme/theme.dart';
 import 'package:provider/provider.dart';
+import '../widgets/custom_color_picker.dart';
 import '../widgets/custom_list_tile.dart';
 import '../widgets/go_back_button.dart';
 import '../widgets/settings_section.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
   const Settings({super.key});
+
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     ThemeData currentTheme;
-    switch (context.read<ConfigProvider>().config.darkThemeOption) {
-      case ThemeOption.dark:
+    switch (context.read<ConfigProvider>().darkThemeOption) {
+       case ThemeOption.dark:
+        currentTheme = darkTheme;
         break;
       case ThemeOption.light:
+        currentTheme = lightTheme;
         break;
       default:
         if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
@@ -31,6 +39,7 @@ class Settings extends StatelessWidget {
           ),
         );
     }
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
       body: SafeArea(
@@ -46,19 +55,19 @@ class Settings extends StatelessWidget {
                       icon: Icons.person,
                       name: "Name",
                       functionIcon: Icons.edit,
-                      function: () {},
+                      onTap: () {},
                     ),
                     CustomListTile(
                       icon: Icons.label_rounded,
                       name: "Postion",
                       functionIcon: Icons.edit,
-                      function: () {},
+                      onTap: () {},
                     ),
                     CustomListTile(
                       icon: Icons.image,
                       name: "Image",
                       functionIcon: Icons.upload,
-                      function: () {},
+                      onTap: () {},
                     ),
                   ],
                 ),
@@ -70,19 +79,19 @@ class Settings extends StatelessWidget {
                       icon: Icons.phone,
                       name: "Phone Number",
                       functionIcon: Icons.edit,
-                      function: () {},
+                      onTap: () {},
                     ),
                     CustomListTile(
                       icon: Icons.mail,
                       name: "Email Address",
                       functionIcon: Icons.edit,
-                      function: () {},
+                      onTap: () {},
                     ),
                     CustomListTile(
                       icon: Icons.share,
                       name: "Social Name Tag",
                       functionIcon: Icons.edit,
-                      function: () {},
+                      onTap: () {},
                     ),
                   ],
                 ),
@@ -94,45 +103,55 @@ class Settings extends StatelessWidget {
                       icon: Icons.palette,
                       name: "Color Palette",
                       functionIcon: Icons.colorize,
-                      function: () {},
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const CustomColorPicker();
+                          },
+                        );
+                      },
                     ),
                     CustomListTile(
                       icon: Icons.dark_mode,
                       name: "Dark Theme",
                       functionIcon: Icons.arrow_drop_down_circle,
-                      function: () {},
+                      onTap: () {},
                     ),
                     CustomListTile(
                       icon: Icons.delete,
                       name: "Delete Data",
                       functionIcon: Icons.cancel,
-                      function: () {},
+                      onTap: () {},
                     ),
                   ],
                 ),
-                const Divider(),
-                SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.all(6),
-                    child: Card(
-                      elevation: 1,
-                      child: ColorPicker(
-                        enableShadesSelection: false,
-                        pickersEnabled: const {
-                          ColorPickerType.accent: false,
-                        },
-                        onColorChanged: (Color color) {
-                          context.read<ConfigProvider>().setColorTheme(color);
-                        },
-                        color: context.read<ConfigProvider>().config.themeColor,
-                        heading: Text(
-                          'Select color',
-                          style: Theme.of(context).textTheme.headlineSmall,
+                DropdownButton<ThemeOption>(
+                  icon: const Icon(Icons.menu),
+                  underline: Container(),
+                  value: context.read<ConfigProvider>().darkThemeOption,
+                  onChanged: (ThemeOption? option) {
+                    setState(() {
+                       context.read<ConfigProvider>().setThemeOption(option!);
+                    });
+                  },
+                  items: ThemeOption.values.map<DropdownMenuItem<ThemeOption>>(
+                    (ThemeOption option) {
+                      return DropdownMenuItem(
+                        value: option,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SizedBox.square(dimension: 16),
+                            Icon(option.icon, color: Theme.of(context).colorScheme.onSurfaceVariant,),
+                            const SizedBox.square(dimension: 16),
+                            Text(option.label),
+                            const SizedBox.square(dimension: 16),
+                          ],
                         ),
-                      ),
-                    ),
-                  ),
+                      );
+                    },
+                  ).toList(),
                 ),
               ],
             ),
