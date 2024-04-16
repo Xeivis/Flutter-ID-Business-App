@@ -10,6 +10,7 @@ dependencies:
   flex_color_picker: ^3.4.1
   flutter:
     sdk: flutter
+  image_picker: ^1.0.8
   provider: ^6.1.2
   shared_preferences: ^2.2.2
 
@@ -20,3 +21,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets\person.png

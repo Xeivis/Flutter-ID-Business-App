@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:id_card/model/contact.dart';
 import 'package:id_card/model/theme_options.dart';
 import 'package:id_card/provider/config_provider.dart';
 import 'package:id_card/theme/theme.dart';
@@ -17,15 +16,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // MOCK DATA
-  final Contact contact = Contact(
-    "Your Name",
-    "Title / Job position",
-    "Phone number",
-    "YourEmail@Your.Domain",
-    "@YourSocialMediaTag",
-  );
-
   @override
   Widget build(BuildContext context) {
     ThemeData currentTheme;
@@ -42,12 +32,12 @@ class _HomeState extends State<Home> {
         } else {
           currentTheme = lightTheme;
         }
-        SystemChrome.setSystemUIOverlayStyle(
-          SystemUiOverlayStyle(
-            statusBarColor: currentTheme.colorScheme.primary,
-          ),
-        );
     }
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: currentTheme.colorScheme.primary,
+      ),
+    );
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -59,15 +49,13 @@ class _HomeState extends State<Home> {
                   flex: 5,
                   fit: FlexFit.tight,
                   child: MainInfo(
-                    contact:
-                        context.read<ConfigProvider>().currentContact,
+                    contact: context.read<ConfigProvider>().currentContact,
                   ),
                 ),
                 Flexible(
                   flex: 2,
                   child: ContactInfo(
-                    contact:
-                        context.read<ConfigProvider>().currentContact,
+                    contact: context.read<ConfigProvider>().currentContact,
                   ),
                 ),
               ],

@@ -5,9 +5,10 @@ import 'package:id_card/provider/config_provider.dart';
 import 'package:id_card/theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../widgets/custom_color_picker.dart';
-import '../widgets/custom_list_tile.dart';
+import '../widgets/settings_list_tile.dart';
 import '../widgets/go_back_button.dart';
 import '../widgets/settings_section.dart';
+import '../widgets/theme_dropdown.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -21,7 +22,7 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     ThemeData currentTheme;
     switch (context.read<ConfigProvider>().darkThemeOption) {
-       case ThemeOption.dark:
+      case ThemeOption.dark:
         currentTheme = darkTheme;
         break;
       case ThemeOption.light:
@@ -33,13 +34,12 @@ class _SettingsState extends State<Settings> {
         } else {
           currentTheme = lightTheme;
         }
-        SystemChrome.setSystemUIOverlayStyle(
-          SystemUiOverlayStyle(
-            statusBarColor: currentTheme.colorScheme.primary,
-          ),
-        );
     }
-
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: currentTheme.colorScheme.primary,
+      ),
+    );
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
       body: SafeArea(
@@ -51,23 +51,34 @@ class _SettingsState extends State<Settings> {
                 SettingsSection(
                   title: "Perfil",
                   settings: [
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.person,
                       name: "Name",
                       functionIcon: Icons.edit,
-                      onTap: () {},
+                      currentValue:
+                          context.read<ConfigProvider>().currentContact.name,
+                      setter: (dynamic) {
+                        context.read<ConfigProvider>().setContactName(dynamic);
+                      },
                     ),
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.label_rounded,
                       name: "Postion",
                       functionIcon: Icons.edit,
-                      onTap: () {},
+                      currentValue:
+                          context.read<ConfigProvider>().currentContact.title,
+                      setter: (dynamic) {
+                        context.read<ConfigProvider>().setContactTitle(dynamic);
+                      },
                     ),
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.image,
                       name: "Image",
                       functionIcon: Icons.upload,
-                      onTap: () {},
+                      setter: (String value) {
+                        context.read<ConfigProvider>().setContactImage(value);
+                      },
+                      isImage: true,
                     ),
                   ],
                 ),
@@ -75,23 +86,37 @@ class _SettingsState extends State<Settings> {
                 SettingsSection(
                   title: "Contact",
                   settings: [
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.phone,
                       name: "Phone Number",
                       functionIcon: Icons.edit,
-                      onTap: () {},
+                      currentValue:
+                          context.read<ConfigProvider>().currentContact.phone,
+                      setter: (dynamic) {
+                        context.read<ConfigProvider>().setContactPhone(dynamic);
+                      },
                     ),
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.mail,
                       name: "Email Address",
                       functionIcon: Icons.edit,
-                      onTap: () {},
+                      currentValue:
+                          context.read<ConfigProvider>().currentContact.email,
+                      setter: (dynamic) {
+                        context.read<ConfigProvider>().setContactEmail(dynamic);
+                      },
                     ),
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.share,
                       name: "Social Name Tag",
                       functionIcon: Icons.edit,
-                      onTap: () {},
+                      currentValue:
+                          context.read<ConfigProvider>().currentContact.nametag,
+                      setter: (dynamic) {
+                        context
+                            .read<ConfigProvider>()
+                            .setContactNametag(dynamic);
+                      },
                     ),
                   ],
                 ),
@@ -99,7 +124,7 @@ class _SettingsState extends State<Settings> {
                 SettingsSection(
                   title: "General",
                   settings: [
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.palette,
                       name: "Color Palette",
                       functionIcon: Icons.colorize,
@@ -112,46 +137,20 @@ class _SettingsState extends State<Settings> {
                         );
                       },
                     ),
-                    CustomListTile(
+                    const SettingsListTile(
                       icon: Icons.dark_mode,
                       name: "Dark Theme",
                       functionIcon: Icons.arrow_drop_down_circle,
-                      onTap: () {},
+                      dropdown: ThemeDropdown(),
                     ),
-                    CustomListTile(
+                    SettingsListTile(
+                      enabled: false,
                       icon: Icons.delete,
                       name: "Delete Data",
                       functionIcon: Icons.cancel,
                       onTap: () {},
                     ),
                   ],
-                ),
-                DropdownButton<ThemeOption>(
-                  icon: const Icon(Icons.menu),
-                  underline: Container(),
-                  value: context.read<ConfigProvider>().darkThemeOption,
-                  onChanged: (ThemeOption? option) {
-                    setState(() {
-                       context.read<ConfigProvider>().setThemeOption(option!);
-                    });
-                  },
-                  items: ThemeOption.values.map<DropdownMenuItem<ThemeOption>>(
-                    (ThemeOption option) {
-                      return DropdownMenuItem(
-                        value: option,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const SizedBox.square(dimension: 16),
-                            Icon(option.icon, color: Theme.of(context).colorScheme.onSurfaceVariant,),
-                            const SizedBox.square(dimension: 16),
-                            Text(option.label),
-                            const SizedBox.square(dimension: 16),
-                          ],
-                        ),
-                      );
-                    },
-                  ).toList(),
                 ),
               ],
             ),

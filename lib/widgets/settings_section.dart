@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'custom_list_tile.dart';
+import 'settings_list_tile.dart';
 
 class SettingsSection extends StatelessWidget {
   const SettingsSection({
@@ -10,7 +10,7 @@ class SettingsSection extends StatelessWidget {
   });
 
   final String title;
-  final List<CustomListTile> settings;
+  final List<SettingsListTile> settings;
 
   @override
   Widget build(BuildContext context) {

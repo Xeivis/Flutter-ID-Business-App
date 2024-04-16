@@ -10,9 +10,7 @@ class ConfigButton extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
       elevation: 1,
       onPressed: () => Navigator.of(context).push(
-        createRoute(
-            // handleColorChange: handleColorChange,
-            ),
+        createRoute(),
       ),
       child: const Icon(
         Icons.settings,
