@@ -75,7 +75,7 @@ class _SettingsState extends State<Settings> {
                       icon: Icons.image,
                       name: "Image",
                       functionIcon: Icons.upload,
-                      setter: (String value) {
+                      setter: (dynamic value) {
                         context.read<ConfigProvider>().setContactImage(value);
                       },
                       isImage: true,

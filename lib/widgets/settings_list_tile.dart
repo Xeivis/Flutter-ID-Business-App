@@ -27,7 +27,7 @@ class SettingsListTile extends StatelessWidget {
   final Widget? dropdown;
   final bool? enabled;
   final Function()? onTap;
-  final Function(String value)? setter;
+  final Function(dynamic value)? setter;
   final String? currentValue;
   final bool? isImage;
 
@@ -45,11 +45,12 @@ class SettingsListTile extends StatelessWidget {
             if (isImage != true) {
               settingsInputDialog(context, currentContact);
             } else {
-              // Pick an image from the gallery
-              File? selectedImage = await pickImageFromGallery();
-              if (selectedImage != null) {
-                if (setter != null) {
-                  setter!(selectedImage.path);
+              if (setter != null) {
+                dynamic selectedImage = await pickImageFromGallery();
+                if (!kIsWeb) {
+                  selectedImage != null ? setter!(selectedImage.path) : {};
+                } else {
+                  selectedImage != null ? setter!(selectedImage) : {};
                 }
               }
             }
@@ -117,20 +118,13 @@ class SettingsListTile extends StatelessWidget {
     );
   }
 
-  Future<File?> pickImageFromGallery() async {
+  Future<dynamic> pickImageFromGallery() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (!kIsWeb) {
       return pickedFile != null ? File(pickedFile.path) : null;
     } else {
-      // return pickedFile != null ? File(pickedFile.path) : null;
-      if (pickedFile != null) {
-        var f = await pickedFile.readAsBytes();
-
-        return null;
-      } else {
-        return null;
-      }
+      return pickedFile != null ? await pickedFile.readAsBytes() : null;
     }
   }
 }
