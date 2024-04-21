@@ -33,7 +33,7 @@ class MainApp extends StatelessWidget {
         );
         return MaterialApp(
           title: "ID Card",
-          themeMode: context.read<ConfigProvider>().darkThemeOption.mode,
+          themeMode: context.watch<ConfigProvider>().darkThemeOption.mode,
           theme: lightTheme,
           darkTheme: darkTheme,
           initialRoute: '/',

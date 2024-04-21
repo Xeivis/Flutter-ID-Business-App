@@ -50,6 +50,10 @@ class SettingsListTile extends StatelessWidget {
                 if (setter != null) {
                   setter!(selectedImage.path);
                 }
+              } else {
+                if (setter != null) {
+                  setter!("NoImage");
+                }
               }
             }
           },
@@ -122,7 +126,7 @@ class SettingsListTile extends StatelessWidget {
     if (pickedFile != null) {
       return File(pickedFile.path);
     } else {
-      return File('assets/person.png');
+      return null;
     }
   }
 }

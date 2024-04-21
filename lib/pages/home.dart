@@ -49,13 +49,13 @@ class _HomeState extends State<Home> {
                   flex: 5,
                   fit: FlexFit.tight,
                   child: MainInfo(
-                    contact: context.read<ConfigProvider>().currentContact,
+                    contact: context.watch<ConfigProvider>().currentContact,
                   ),
                 ),
                 Flexible(
                   flex: 2,
                   child: ContactInfo(
-                    contact: context.read<ConfigProvider>().currentContact,
+                    contact: context.watch<ConfigProvider>().currentContact,
                   ),
                 ),
               ],

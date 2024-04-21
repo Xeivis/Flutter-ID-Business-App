@@ -17,6 +17,10 @@ class MainInfo extends StatefulWidget {
 class _MainInfoState extends State<MainInfo> {
   @override
   Widget build(BuildContext context) {
+    ImageProvider imageObject = FileImage(File(widget.contact.image));
+    if (widget.contact.image == "NoImage") {
+      imageObject = const AssetImage("assets/person.png");
+    }
     return FittedBox(
       fit: BoxFit.scaleDown,
       child: Padding(
@@ -25,7 +29,7 @@ class _MainInfoState extends State<MainInfo> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
-              foregroundImage: FileImage(File(widget.contact.image)),
+              foregroundImage: imageObject,
               radius: 130,
             ),
             Text(

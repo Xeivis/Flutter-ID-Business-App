@@ -8,7 +8,7 @@ class ConfigProvider with ChangeNotifier {
   Contact currentContact = Contact(
     "Your Name",
     "Title / Job position",
-    "assets/person.png",
+    "NoImage",
     "Your phone number",
     "Your email",
     "@Your nametag",

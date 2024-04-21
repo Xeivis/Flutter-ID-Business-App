@@ -137,18 +137,18 @@ class _SettingsState extends State<Settings> {
                         );
                       },
                     ),
-                    const SettingsListTile(
+                    SettingsListTile(
                       icon: Icons.dark_mode,
                       name: "Dark Theme",
                       functionIcon: Icons.arrow_drop_down_circle,
-                      dropdown: ThemeDropdown(),
+                      dropdown: const ThemeDropdown(),
+                      onTap: () {},
                     ),
-                    SettingsListTile(
+                    const SettingsListTile(
                       enabled: false,
                       icon: Icons.delete,
                       name: "Delete Data",
                       functionIcon: Icons.cancel,
-                      onTap: () {},
                     ),
                   ],
                 ),
