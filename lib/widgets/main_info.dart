@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:id_card/model/contact.dart';
+import 'package:id_card/models/contact.dart';
 
 class MainInfo extends StatefulWidget {
   final Contact contact;
@@ -17,10 +17,6 @@ class MainInfo extends StatefulWidget {
 class _MainInfoState extends State<MainInfo> {
   @override
   Widget build(BuildContext context) {
-    ImageProvider imageObject = FileImage(File(widget.contact.image));
-    if (widget.contact.image == "NoImage") {
-      imageObject = const AssetImage("assets/person.png");
-    }
     return FittedBox(
       fit: BoxFit.scaleDown,
       child: Padding(
@@ -28,10 +24,15 @@ class _MainInfoState extends State<MainInfo> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
-              foregroundImage: imageObject,
-              radius: 130,
-            ),
+            widget.contact.image != null
+                ? CircleAvatar(
+                    foregroundImage: FileImage(File(widget.contact.image!)),
+                    radius: 130,
+                  )
+                : const CircleAvatar(
+                    foregroundImage: AssetImage("assets/person.png"),
+                    radius: 130,
+                  ),
             Text(
               widget.contact.name,
               overflow: TextOverflow.ellipsis,

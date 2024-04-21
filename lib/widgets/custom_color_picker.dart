@@ -1,6 +1,6 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:id_card/provider/config_provider.dart';
+import 'package:id_card/providers/config_provider.dart';
 import 'package:provider/provider.dart';
 
 class CustomColorPicker extends StatelessWidget {

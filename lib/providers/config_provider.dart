@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:id_card/model/contact.dart';
-import 'package:id_card/model/theme_options.dart';
+import 'package:id_card/models/contact.dart';
+import 'package:id_card/models/theme_options.dart';
 
 class ConfigProvider with ChangeNotifier {
   Color themeColor = Colors.teal;
@@ -8,7 +8,7 @@ class ConfigProvider with ChangeNotifier {
   Contact currentContact = Contact(
     "Your Name",
     "Title / Job position",
-    "NoImage",
+    null,
     "Your phone number",
     "Your email",
     "@Your nametag",

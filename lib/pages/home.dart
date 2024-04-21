@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:id_card/model/theme_options.dart';
-import 'package:id_card/provider/config_provider.dart';
+import 'package:id_card/models/theme_options.dart';
+import 'package:id_card/providers/config_provider.dart';
 import 'package:id_card/theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../widgets/config_button.dart';

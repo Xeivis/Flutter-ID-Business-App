@@ -1,8 +1,9 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:id_card/model/contact.dart';
-import 'package:id_card/provider/config_provider.dart';
+import 'package:id_card/models/contact.dart';
+import 'package:id_card/providers/config_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -49,10 +50,6 @@ class SettingsListTile extends StatelessWidget {
               if (selectedImage != null) {
                 if (setter != null) {
                   setter!(selectedImage.path);
-                }
-              } else {
-                if (setter != null) {
-                  setter!("NoImage");
                 }
               }
             }
@@ -123,10 +120,17 @@ class SettingsListTile extends StatelessWidget {
   Future<File?> pickImageFromGallery() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      return File(pickedFile.path);
+    if (!kIsWeb) {
+      return pickedFile != null ? File(pickedFile.path) : null;
     } else {
-      return null;
+      // return pickedFile != null ? File(pickedFile.path) : null;
+      if (pickedFile != null) {
+        var f = await pickedFile.readAsBytes();
+
+        return null;
+      } else {
+        return null;
+      }
     }
   }
 }
