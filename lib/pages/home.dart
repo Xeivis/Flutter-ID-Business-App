@@ -1,40 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:id_card/model/contact.dart';
+import 'package:id_card/models/theme_options.dart';
+import 'package:id_card/providers/config_provider.dart';
 import 'package:id_card/theme/theme.dart';
+import 'package:provider/provider.dart';
 import '../widgets/config_button.dart';
 import '../widgets/contact_info.dart';
 import '../widgets/main_info.dart';
 
 class Home extends StatefulWidget {
-  const Home({
-    super.key,
-    required this.handleColorChange,
-  });
-
-  final void Function(Color color) handleColorChange;
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  // MOCK DATA
-  final Contact contact = Contact(
-    "Your Name",
-    "Title / Job position",
-    "Phone number",
-    "YourEmail@Your.Domain",
-    "@YourSocialMediaTag",
-  );
-
   @override
   Widget build(BuildContext context) {
     ThemeData currentTheme;
-    if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
-      currentTheme = darkTheme;
-    } else {
-      currentTheme = lightTheme;
+    switch (context.read<ConfigProvider>().darkThemeOption) {
+      case ThemeOption.dark:
+        currentTheme = darkTheme;
+        break;
+      case ThemeOption.light:
+        currentTheme = lightTheme;
+        break;
+      default:
+        if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+          currentTheme = darkTheme;
+        } else {
+          currentTheme = lightTheme;
+        }
     }
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
@@ -52,13 +49,13 @@ class _HomeState extends State<Home> {
                   flex: 5,
                   fit: FlexFit.tight,
                   child: MainInfo(
-                    contact: contact,
+                    contact: context.watch<ConfigProvider>().currentContact,
                   ),
                 ),
                 Flexible(
                   flex: 2,
                   child: ContactInfo(
-                    contact: contact,
+                    contact: context.watch<ConfigProvider>().currentContact,
                   ),
                 ),
               ],
@@ -66,7 +63,7 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      floatingActionButton: ConfigButton(handleColorChange: widget.handleColorChange,),
+      floatingActionButton: const ConfigButton(),
     );
   }
 }
