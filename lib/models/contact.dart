@@ -1,7 +1,7 @@
 class Contact {
   String name;
   String title;
-  String? image;
+  dynamic image;
   String phone;
   String email;
   String nametag;

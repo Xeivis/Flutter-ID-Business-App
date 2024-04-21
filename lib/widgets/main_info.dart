@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:id_card/models/contact.dart';
 
@@ -25,10 +26,15 @@ class _MainInfoState extends State<MainInfo> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             widget.contact.image != null
-                ? CircleAvatar(
-                    foregroundImage: FileImage(File(widget.contact.image!)),
-                    radius: 130,
-                  )
+                ? kIsWeb
+                    ? CircleAvatar(
+                        foregroundImage: MemoryImage(widget.contact.image!),
+                        radius: 130,
+                      )
+                    : CircleAvatar(
+                        foregroundImage: FileImage(File(widget.contact.image!)),
+                        radius: 130,
+                      )
                 : const CircleAvatar(
                     foregroundImage: AssetImage("assets/person.png"),
                     radius: 130,

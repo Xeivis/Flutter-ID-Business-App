@@ -29,7 +29,7 @@ class ConfigProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setContactImage(String value) {
+  void setContactImage(dynamic value) {
     currentContact.image = value;
     notifyListeners();
   }
