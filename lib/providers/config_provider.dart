@@ -69,8 +69,9 @@ class ConfigProvider with ChangeNotifier {
   }
 
   void setColorTheme(Color color) async {
-    // final SharedPreferences prefs = await SharedPreferences.getInstance();
-    // prefs.setString('themeColor', color.toString());
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(
+        'themeColor', color.toString().split('(0x')[1].split(')')[0]);
     themeColor = color;
     notifyListeners();
   }
@@ -90,14 +91,14 @@ class ConfigProvider with ChangeNotifier {
     setContactPhone(prefs.getString('phone') ?? 'Your phone number');
     setContactEmail(prefs.getString('email') ?? "Your email");
     setContactNametag(prefs.getString('nametag') ?? "@YourNametag");
-    // setColorTheme(
-    //   Color(
-    //     int.parse(
-    //         (prefs.getString('themeColor') ??
-    //             Colors.teal.toString().split('(0x')[1].split(')')[0]),
-    //         radix: 16),
-    //   ),
-    // );
+    setColorTheme(
+      Color(
+        int.parse(
+            (prefs.getString('themeColor') ??
+                Colors.teal.toString().split('(0x')[1].split(')')[0]),
+            radix: 16),
+      ),
+    );
     setThemeOption(
       ThemeOption.values.firstWhere(
         (t) =>
