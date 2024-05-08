@@ -1,17 +1,17 @@
-import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
-import '../widgets/custom_list_tile.dart';
+import 'package:flutter/services.dart';
+import 'package:id_card/models/theme_options.dart';
+import 'package:id_card/providers/config_provider.dart';
+import 'package:id_card/theme/theme.dart';
+import 'package:provider/provider.dart';
+import '../widgets/custom_color_picker.dart';
+import '../widgets/settings_list_tile.dart';
 import '../widgets/go_back_button.dart';
 import '../widgets/settings_section.dart';
+import '../widgets/theme_dropdown.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({
-    super.key,
-    required this.handleColorChange,
-  });
-
-  final void Function(Color color) handleColorChange;
-
+  const Settings({super.key});
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -20,6 +20,27 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
+    ThemeData currentTheme;
+    switch (context.read<ConfigProvider>().darkThemeOption) {
+      case ThemeOption.dark:
+        currentTheme = darkTheme;
+        break;
+      case ThemeOption.light:
+        currentTheme = lightTheme;
+        break;
+      default:
+        if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+          currentTheme = darkTheme;
+        } else {
+          currentTheme = lightTheme;
+        }
+    }
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: currentTheme.colorScheme.primary,
+      ),
+    );
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
       body: SafeArea(
@@ -31,23 +52,34 @@ class _SettingsState extends State<Settings> {
                 SettingsSection(
                   title: "Perfil",
                   settings: [
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.person,
                       name: "Name",
                       functionIcon: Icons.edit,
-                      function: () {},
+                      currentValue:
+                          context.read<ConfigProvider>().currentContact.name,
+                      setter: (dynamic) {
+                        context.read<ConfigProvider>().setContactName(dynamic);
+                      },
                     ),
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.label_rounded,
                       name: "Postion",
                       functionIcon: Icons.edit,
-                      function: () {},
+                      currentValue:
+                          context.read<ConfigProvider>().currentContact.title,
+                      setter: (dynamic) {
+                        context.read<ConfigProvider>().setContactTitle(dynamic);
+                      },
                     ),
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.image,
                       name: "Image",
                       functionIcon: Icons.upload,
-                      function: () {},
+                      setter: (dynamic value) {
+                        context.read<ConfigProvider>().setContactImage(value);
+                      },
+                      isImage: true,
                     ),
                   ],
                 ),
@@ -55,23 +87,37 @@ class _SettingsState extends State<Settings> {
                 SettingsSection(
                   title: "Contact",
                   settings: [
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.phone,
                       name: "Phone Number",
                       functionIcon: Icons.edit,
-                      function: () {},
+                      currentValue:
+                          context.read<ConfigProvider>().currentContact.phone,
+                      setter: (dynamic) {
+                        context.read<ConfigProvider>().setContactPhone(dynamic);
+                      },
                     ),
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.mail,
                       name: "Email Address",
                       functionIcon: Icons.edit,
-                      function: () {},
+                      currentValue:
+                          context.read<ConfigProvider>().currentContact.email,
+                      setter: (dynamic) {
+                        context.read<ConfigProvider>().setContactEmail(dynamic);
+                      },
                     ),
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.share,
                       name: "Social Name Tag",
                       functionIcon: Icons.edit,
-                      function: () {},
+                      currentValue:
+                          context.read<ConfigProvider>().currentContact.nametag,
+                      setter: (dynamic) {
+                        context
+                            .read<ConfigProvider>()
+                            .setContactNametag(dynamic);
+                      },
                     ),
                   ],
                 ),
@@ -79,48 +125,36 @@ class _SettingsState extends State<Settings> {
                 SettingsSection(
                   title: "General",
                   settings: [
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.palette,
                       name: "Color Palette",
                       functionIcon: Icons.colorize,
-                      function: () {},
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const CustomColorPicker();
+                          },
+                        );
+                      },
                     ),
-                    CustomListTile(
+                    SettingsListTile(
                       icon: Icons.dark_mode,
                       name: "Dark Theme",
                       functionIcon: Icons.arrow_drop_down_circle,
-                      function: () {},
+                      dropdown: const ThemeDropdown(),
+                      onTap: () {},
                     ),
-                    CustomListTile(
+                    SettingsListTile(
+                      // enabled: false,
                       icon: Icons.delete,
                       name: "Delete Data",
                       functionIcon: Icons.cancel,
-                      function: () {},
+                      onTap: () {
+                        context.read<ConfigProvider>().deleteData();
+                      },
                     ),
                   ],
-                ),
-                const Divider(),
-                SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.all(6),
-                    child: Card(
-                      elevation: 1,
-                      child: ColorPicker(
-                        enableShadesSelection: false,
-                        pickersEnabled: const {
-                          ColorPickerType.accent: false,
-                        },
-                        onColorChanged: (Color color) {
-                          widget.handleColorChange(color);
-                        },
-                        heading: Text(
-                          'Select color',
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                      ),
-                    ),
-                  ),
                 ),
               ],
             ),
