@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -47,10 +48,12 @@ class SettingsListTile extends StatelessWidget {
             } else {
               if (setter != null) {
                 dynamic selectedImage = await pickImageFromGallery();
-                if (!kIsWeb) {
-                  selectedImage != null ? setter!(selectedImage.path) : {};
+                if (kIsWeb) {
+                  selectedImage != null
+                      ? setter!(base64Encode(selectedImage))
+                      : {};
                 } else {
-                  selectedImage != null ? setter!(selectedImage) : {};
+                  selectedImage != null ? setter!(selectedImage.path) : {};
                 }
               }
             }
@@ -121,10 +124,10 @@ class SettingsListTile extends StatelessWidget {
   Future<dynamic> pickImageFromGallery() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (!kIsWeb) {
-      return pickedFile != null ? File(pickedFile.path) : null;
-    } else {
+    if (kIsWeb) {
       return pickedFile != null ? await pickedFile.readAsBytes() : null;
+    } else {
+      return pickedFile != null ? File(pickedFile.path) : null;
     }
   }
 }

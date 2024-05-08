@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:id_card/models/contact.dart';
@@ -39,11 +41,14 @@ class ConfigProvider with ChangeNotifier {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (value != null) {
       if (kIsWeb) {
+        currentContact.image = base64Decode(value);
       } else {
-        prefs.setString('image', value);
+        currentContact.image = value;
       }
+      prefs.setString('image', value);
+    } else {
+      currentContact.image = value;
     }
-    currentContact.image = value;
     notifyListeners();
   }
 
@@ -101,8 +106,8 @@ class ConfigProvider with ChangeNotifier {
     );
     setThemeOption(
       ThemeOption.values.firstWhere(
-        (t) =>
-            t.toString() ==
+        (theme) =>
+            theme.toString() ==
             (prefs.getString('themeOption') ?? ThemeOption.system.toString()),
       ),
     );
