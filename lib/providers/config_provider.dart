@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:id_card/models/contact.dart';
 import 'package:id_card/models/theme_options.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ConfigProvider with ChangeNotifier {
   Color themeColor = Colors.teal;
@@ -11,51 +15,108 @@ class ConfigProvider with ChangeNotifier {
     null,
     "Your phone number",
     "Your email",
-    "@Your nametag",
+    "@YourNametag",
   );
 
-  void setContact(Contact contact) {
+  void setContact(Contact contact) async {
     currentContact = contact;
     notifyListeners();
   }
 
-  void setContactName(String value) {
+  void setContactName(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', value);
     currentContact.name = value;
     notifyListeners();
   }
 
-  void setContactTitle(String value) {
+  void setContactTitle(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('title', value);
     currentContact.title = value;
     notifyListeners();
   }
 
-  void setContactImage(dynamic value) {
-    currentContact.image = value;
+  void setContactImage(dynamic value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (value != null) {
+      if (kIsWeb) {
+        currentContact.image = base64Decode(value);
+      } else {
+        currentContact.image = value;
+      }
+      prefs.setString('image', value);
+    } else {
+      currentContact.image = value;
+    }
     notifyListeners();
   }
 
-  void setContactPhone(String value) {
+  void setContactPhone(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('phone', value);
     currentContact.phone = value;
     notifyListeners();
   }
 
-  void setContactEmail(String value) {
+  void setContactEmail(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('email', value);
     currentContact.email = value;
     notifyListeners();
   }
 
-  void setContactNametag(String value) {
+  void setContactNametag(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('nametag', value);
     currentContact.nametag = value;
     notifyListeners();
   }
 
-  void setColorTheme(Color color) {
+  void setColorTheme(Color color) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(
+        'themeColor', color.toString().split('(0x')[1].split(')')[0]);
     themeColor = color;
     notifyListeners();
   }
 
-  void setThemeOption(ThemeOption option) {
+  void setThemeOption(ThemeOption option) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('themeOption', option.toString());
     darkThemeOption = option;
+    notifyListeners();
+  }
+
+  void loadData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setContactName(prefs.getString('name') ?? "Your Name");
+    setContactTitle(prefs.getString('title') ?? "Title / Job position");
+    setContactImage(prefs.getString('image'));
+    setContactPhone(prefs.getString('phone') ?? 'Your phone number');
+    setContactEmail(prefs.getString('email') ?? "Your email");
+    setContactNametag(prefs.getString('nametag') ?? "@YourNametag");
+    setColorTheme(
+      Color(
+        int.parse(
+            (prefs.getString('themeColor') ??
+                Colors.teal.toString().split('(0x')[1].split(')')[0]),
+            radix: 16),
+      ),
+    );
+    setThemeOption(
+      ThemeOption.values.firstWhere(
+        (theme) =>
+            theme.toString() ==
+            (prefs.getString('themeOption') ?? ThemeOption.system.toString()),
+      ),
+    );
+  }
+
+  void deleteData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    loadData();
     notifyListeners();
   }
 }

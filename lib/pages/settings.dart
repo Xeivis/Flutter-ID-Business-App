@@ -40,6 +40,7 @@ class _SettingsState extends State<Settings> {
         statusBarColor: currentTheme.colorScheme.primary,
       ),
     );
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
       body: SafeArea(
@@ -144,11 +145,14 @@ class _SettingsState extends State<Settings> {
                       dropdown: const ThemeDropdown(),
                       onTap: () {},
                     ),
-                    const SettingsListTile(
-                      enabled: false,
+                    SettingsListTile(
+                      // enabled: false,
                       icon: Icons.delete,
                       name: "Delete Data",
                       functionIcon: Icons.cancel,
+                      onTap: () {
+                        context.read<ConfigProvider>().deleteData();
+                      },
                     ),
                   ],
                 ),

@@ -17,6 +17,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  void initState() {
+    super.initState();
+    context.read<ConfigProvider>().loadData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     ThemeData currentTheme;
     switch (context.read<ConfigProvider>().darkThemeOption) {
