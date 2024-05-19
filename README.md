@@ -4,8 +4,10 @@ The main objective of this project was to let me experiment, create, learn and i
 
 It's able to craeate a personalized display ID to show arround while at a convetion, social gathering or event of the sort.
 
-The app is fully functional on Android devices, here is a link to the PlayStore to join in as testers and be able to download the app on your device:
-https://play.google.com/store/apps/details?id=org.xeivis.id_card
+The app is fully functional on Android devices just follow this steps to be one of the first to try it out:
 
-Alternativley you can also join in as a tester via web using this link:
-https://play.google.com/apps/testing/org.xeivis.id_card
+  1. Here's a link to a Google Group where you can join in as a Tester and try the Android App version of this project yourself:
+     https://groups.google.com/g/xeivis---testers
+
+  2. And here's the link to the Google Play Store App so that you can download it:
+     https://play.google.com/store/apps/details?id=org.xeivis.id_card
